@@ -11,6 +11,7 @@ export default function Orderslist() {
   useEffect(() => {
     dispatch(getAllOrders());
   }, []);
+
   return (
     <div>
       {loading && <Loading />}
@@ -18,18 +19,21 @@ export default function Orderslist() {
       <table className="table table-striped table-bordered table-responsive-sm">
         <thead>
           <tr>
-            <th>Items</th>
+            <th>Transaction Id</th>
             <th>Email</th>
             <th>Name</th>
             <th>Amount</th>
             <th>Date</th>
             <th>Status</th>
+            <th>Items</th>
+            <th>Quantity</th>
           </tr>
         </thead>
 
         <tbody>
           {orders &&
             orders.map((order) => {
+              console.log(order.orderItems, "aa");
               return (
                 <tr>
                   <td>{order.transactionId}</td>
@@ -50,6 +54,30 @@ export default function Orderslist() {
                         Deliver
                       </button>
                     )}
+                  </td>
+                  <td>
+                    <ol className="itemNames">
+                      {order.orderItems.map((item, i) => {
+                        return (
+                          <li>
+                            {item.name}
+                            {order.orderItems.length > 1 &&
+                              order.orderItems.length - 1 != i && <hr />}
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </td>
+                  <td className="itemQuantities">
+                    {order.orderItems.map((item, i) => {
+                      return (
+                        <p>
+                          {item.quantity}
+                          {order.orderItems.length > 1 &&
+                            order.orderItems.length - 1 != i && <hr />}
+                        </p>
+                      );
+                    })}
                   </td>
                 </tr>
               );

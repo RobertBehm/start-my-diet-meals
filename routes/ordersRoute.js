@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
-const stripe = require("stripe")(process.env.STRIPE_SK);
+const stripe = require("stripe")(
+  "sk_test_51KOlUPGRMoSZxLCTmrvBM8TR0SuEQTRYxoI5xKfFlWxYrPmEsoIwtrzAc90j0m9pATJmHYEQnYc4bylTk9pStXlg00ZvpIRtoc"
+);
 const Order = require("../models/orderModel");
 
 router.post("/placeorder", async (req, res) => {

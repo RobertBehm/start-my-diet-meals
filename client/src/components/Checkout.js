@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { placeOrder } from "../actions/orderActions";
+import { emptyCart } from "../actions/cartActions";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import Success from "../components/Success";
@@ -14,6 +15,7 @@ export default function Checkout({ subtotal }) {
   function tokenHander(token) {
     console.log(token);
     dispatch(placeOrder(token, subtotal));
+    dispatch(emptyCart());
   }
 
   return (
@@ -28,7 +30,7 @@ export default function Checkout({ subtotal }) {
         billingAddress
         token={tokenHander}
         currency="USD"
-        stripeKey={process.env.STRIPE_PK}
+        stripeKey="pk_test_51KOlUPGRMoSZxLCTj1U2YkhCvvmivvhfFnbg37Lx2Sy76C8nQkMQXnXO16Zi8C4PJphmspmrIAK1CpeYrE9TqouV00FG4OQNgo"
       >
         <button className="btn">Pay Now</button>
       </StripeCheckout>
